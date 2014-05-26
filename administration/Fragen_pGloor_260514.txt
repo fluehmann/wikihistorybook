@@ -13,7 +13,28 @@ mit Checkboxen Kategorien wählen?
 
 Ab Jahr 1000 grosse Performance Schwierigkeiten da viele Personen => Lösung?
 
-GUI Optimierung => zusätzliche Features?
-- Info-Box (mousepressedevent), Infos und link zu wikipedia (Browserfenster als jframe)
+
+
+
+
+antworten
+---------
+
+Performance
+=> indegree verwenden (gesamte Lebenszeit)
+=> slider durchziehen - alle graphen vorberechnen (layouting einige Jahre vorwärts und rückwärts)
+
+Laden & zeichen Performance
+=> Fisheye Effekt - rauszoomen: Kategorien kapseln reinzoomen: alle Knoten anzeigen
+=> Top 1000 nach centrality Measures um Anzahl personen zu reduzieren.
+
+Deployment
+=> Anzeigen im Broswer oder als Applet (deploy als applet wünschenswert)
+
+GUI Optimierung
+=> zusätzliche Features
+- Info-Box (bei mousepressedevent auf node), Infos und link zu wikipedia (Browserfenster als jframe)
 - Darstellung der Nodes (labels und z-index)
 - Darstellung der Kanten (dünner und grau)
+- Zoom in & Zoom Out buttons
+
