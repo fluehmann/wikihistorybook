@@ -105,7 +105,7 @@ public class NZClass extends JFrame implements ActionListener{
             	System.out.print(Object + " ");
             }
             System.out.println();
-            for(Object Object: list.getSelectedValues()){
+            for(Object Object: list.getSelectedValuesList()){
             	System.out.print(Object.toString() + " ");
             }
         }
