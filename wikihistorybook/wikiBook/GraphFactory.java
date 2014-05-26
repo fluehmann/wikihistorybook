@@ -43,6 +43,7 @@ public class GraphFactory extends Thread{
 	}
 	
 	public void run() {
+		long millis = System.currentTimeMillis();
 		if (progressBar != null) {
 			progressBar.setIndeterminate(true);
 		}
@@ -68,6 +69,8 @@ public class GraphFactory extends Thread{
 		if (progressBar != null) {
 			progressBar.setIndeterminate(false);
 		}
+		
+		System.out.println((System.currentTimeMillis())-millis);
 		
 		for (String id : peopleList) {
 			prg++;
