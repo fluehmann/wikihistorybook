@@ -3,13 +3,17 @@ Fragen
 
 Es werden nur Knoten angezeigt die miteinander verbunden sind.
 
-Suche nach einer Person zu Beginn ist notwendig (Performance). Startperson.
-Allenfalls mit lokalem File => Namen und Kategorie schon vorgegeben.
-	=> In 10-Jahresschritten werden dann alle Connections angezeigt die zbsp mit Julius Cäsar vernetzt waren.
+Datenbankperformance ist kein Problem mehr..
+Anzeigeperformance ist das Problem - bis zu 5' Wartezeit
+- Abort Button einbauen.
 
-Wieviele Personen über 4000 Jahre?
+Wieviele Personen über 4000 Jahre? Was wollen wir filtern?
+Filtern mit in-degree?
 mit Checkboxen Kategorien wählen?
 
 Ab Jahr 1000 grosse Performance Schwierigkeiten da viele Personen => Lösung?
 
 GUI Optimierung => zusätzliche Features?
+- Info-Box (mousepressedevent), Infos und link zu wikipedia (Browserfenster als jframe)
+- Darstellung der Nodes (labels und z-index)
+- Darstellung der Kanten (dünner und grau)
