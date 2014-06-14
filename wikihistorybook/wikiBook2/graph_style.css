@@ -1,0 +1,31 @@
+graph {
+    fill-color: white;
+}
+node { 
+	/*size: 7px;*/
+	/*fill-color: #8C2;*/ 
+	text-mode: hidden;
+	stroke-mode: plain; 
+	stroke-color: #555;
+}
+
+node.selected {
+	fill-color: red;
+	text-mode: normal;
+	text-alignment: under; 
+	text-color: white; 
+	text-style: bold; 
+	text-background-mode: rounded-box; 
+	text-background-color: #222C; 
+	text-padding: 5px, 4px; 
+	text-offset: 0px, 5px;
+	stroke-mode: plain; 
+	stroke-color: #555;
+}
+
+edge {
+    shape: line;
+    fill-color: #ddd;
+}
+
+
