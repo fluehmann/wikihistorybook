@@ -17,14 +17,17 @@ public class DBProvider {
 	private Statement statement;
 	private final String CONN_QUERY= "jdbc:mysql://91.250.82.104:3306/wikihistory?user=wikipulse&password=COINcourse2014";
 	
-	private static String connectionsQuery = "SELECT person_to, person_from FROM wikihistory.connections WHERE year_from < ? AND year_to > ?";
+	private static String connectionsQuery = "SELECT person_to, person_from FROM wikihistory.connections USE INDEX (year_from,year_to) WHERE year_from < ? AND year_to > ?";
 	private PreparedStatement connectionsOfYear;
 	
 	private static String peopleQuery = "SELECT id, name FROM wikihistory.people WHERE year_from < ? AND year_to > ?";
 	private PreparedStatement peopleOfYear;
 	
-	private static String conFromQuery = "SELECT person_to FROM wikihistory.connections WHERE person_from = ? AND year_from < ? AND year_to > ?";
+	private static String conFromQuery = "SELECT person_to FROM wikihistory.connections USE INDEX (person_from) WHERE person_from = ? AND year_from < ? AND year_to > ?";
 	private PreparedStatement connectionsFrom;
+	
+	private static String peopleQuery2 = "SELECT person_to FROM wikihistory.connections USE INDEX (person_from) WHERE person_from = ? AND year_from < ? AND year_to > ?";
+	private PreparedStatement peopleOfYear2;
 	
 
 	public static DBProvider getInstance() {
@@ -43,11 +46,12 @@ public class DBProvider {
 				this.connectionsOfYear = connection.prepareStatement(connectionsQuery,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 				this.peopleOfYear = connection.prepareStatement(peopleQuery,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 				this.connectionsFrom = connection.prepareStatement(conFromQuery,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
+				this.peopleOfYear2 = connection.prepareStatement(peopleQuery2,ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_READ_ONLY);
 
 			} catch (ClassNotFoundException e) {
 				System.out.println("Class not found!");
 			} catch (SQLException e) {
-				System.out.println("SQL Exception!");
+				System.out.println("SQL Exception! Connection failed");
 			} catch (Exception ex) {
 				System.out.println("Exception");
 			}
@@ -62,6 +66,7 @@ public class DBProvider {
 				connection.close();
 			}
 		} catch (SQLException e) {
+			System.out.println("Connection close Error");
 			e.printStackTrace();
 		}
 	}
@@ -81,6 +86,7 @@ public class DBProvider {
 			statement = connection.createStatement();
 			res = statement.executeQuery(query);
 		} catch (SQLException e) {
+			System.out.println("Execute Query Error (executeQuery)");
 			e.printStackTrace();
 		}
 		
@@ -97,9 +103,10 @@ public class DBProvider {
 		try {
 			connectionsOfYear.setInt(1, year);
 			connectionsOfYear.setInt(2, year);
-			connectionsOfYear.setFetchSize(Integer.MIN_VALUE);
+			//connectionsOfYear.setFetchSize(Integer.MIN_VALUE);
 			res = connectionsOfYear.executeQuery();
 		} catch (SQLException e) {
+			System.out.println("SQL Error (getConnections)");
 			e.printStackTrace();
 		}
 		
@@ -118,6 +125,26 @@ public class DBProvider {
 			peopleOfYear.setFetchSize(Integer.MIN_VALUE);
 			res = peopleOfYear.executeQuery();
 		} catch (SQLException e) {
+			System.out.println("SQL Error (getPeople)");
+			e.printStackTrace();
+		}
+		
+		return res;
+		
+	}
+	
+	public ResultSet getPeople2(int year){
+		ResultSet res=null;
+		
+		if(connection==null)getConnection();
+		
+		try {
+			peopleOfYear2.setInt(1, year);
+			peopleOfYear2.setInt(2, year);
+			peopleOfYear2.setFetchSize(Integer.MIN_VALUE);
+			res = peopleOfYear2.executeQuery();
+		} catch (SQLException e) {
+			System.out.println("SQL Error (getPeople)");
 			e.printStackTrace();
 		}
 		
@@ -134,9 +161,9 @@ public class DBProvider {
 			connectionsFrom.setString(1, id);
 			connectionsFrom.setInt(2, year);
 			connectionsFrom.setInt(3, year);
-			//connectionsFrom.setFetchSize();
 			res = connectionsFrom.executeQuery();
 		} catch (SQLException e) {
+			System.out.println("SQL Error (getConnectionsFrom)");
 			e.printStackTrace();
 		}
 		

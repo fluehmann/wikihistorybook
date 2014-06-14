@@ -29,21 +29,20 @@ public class GraphFactory extends Thread{
 	private double prg;
 	private JProgressBar progressBar;
 	
-	public GraphFactory(WikiBook wikibook, int year){
+	public GraphFactory(WikiBook wikiBook, int year){
 		super();
-		this.wikibook = wikibook;
+		this.wikibook = wikiBook;
 		db = DBProvider.getInstance();
 		cur_year = year;
-		db = wikibook.getDB();
+		db = wikiBook.getDB();
 		peopleList = new ArrayList<String>();
 		graph = new SingleGraph("Wiki");
 		prg = 0;
-		progressBar = wikibook.getPG();
+		progressBar = wikiBook.getPG();
 		
 	}
 	
 	public void run() {
-		long millis = System.currentTimeMillis();
 		if (progressBar != null) {
 			progressBar.setIndeterminate(true);
 		}
@@ -69,9 +68,7 @@ public class GraphFactory extends Thread{
 		if (progressBar != null) {
 			progressBar.setIndeterminate(false);
 		}
-		
-		System.out.println((System.currentTimeMillis())-millis);
-		
+				
 		for (String id : peopleList) {
 			prg++;
 			connections = db.getConnectionsFrom(id, cur_year);
@@ -107,7 +104,7 @@ public class GraphFactory extends Thread{
 	        
 	       double maxBt = 0.0001;
 	       for (String id : peopleList) {
-	    	   double bt = graph.getNode(id).getAttribute("Cb");
+	    	   double bt = graph.getNode(id).getInDegree();
 	    	   if(bt > maxBt){
 	    		   maxBt = bt;
 	    	   }
@@ -115,7 +112,7 @@ public class GraphFactory extends Thread{
 	       
 	        for (String id : peopleList) {
 	        		
-	        		double bt = graph.getNode(id).getAttribute("Cb");
+	        	double bt = graph.getNode(id).getInDegree();
 	        		double size = bt/maxBt* 20;
 	        		double weight = bt/maxBt;
 	        		if (weight == 0.0){

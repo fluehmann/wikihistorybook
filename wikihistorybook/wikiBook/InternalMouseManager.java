@@ -3,7 +3,9 @@ package wikiBook;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+
 import javax.swing.JOptionPane;
+
 
 import org.graphstream.ui.graphicGraph.GraphicElement;
 import org.graphstream.ui.swingViewer.util.DefaultMouseManager;
@@ -39,6 +41,7 @@ public class InternalMouseManager extends DefaultMouseManager {
 			}
 			a.get(0).addAttribute("ui.class", "selected");
 			ge = a.get(0);
+			
 		}else{
 			if(ge!= null){
 				ge.removeAttribute("ui.class");

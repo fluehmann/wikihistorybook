@@ -35,7 +35,7 @@ public class WikiBook extends JFrame{
 	private final int SLIDER_MAX = 2000;
 	private final int SLIDER_INIT = 0;
 	
-	private final int YEAR_INIT = -867;
+	private final int YEAR_INIT = 500;
 		
 	public WikiBook(){
 		super("The-Wiki-History-Book");
