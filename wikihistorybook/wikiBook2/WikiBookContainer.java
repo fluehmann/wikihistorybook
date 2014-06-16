@@ -115,6 +115,7 @@ public class WikiBookContainer extends JFrame{
 		yearText.setBorder(new EmptyBorder(10,10,0,0));
 		
 		btnPnl = new JPanel();
+		btnPnl.setFocusable(false);
 		btnPnl.setBorder(BorderFactory.createTitledBorder("Zooming"));
 		btnZoomIn = new JButton("+");
 		btnZoomOut = new JButton("-");
