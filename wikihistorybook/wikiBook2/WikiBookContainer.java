@@ -4,10 +4,14 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JEditorPane;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -33,6 +37,7 @@ public class WikiBookContainer extends JFrame{
 	private static final long serialVersionUID = 1L;
 	private JPanel panel;
 	private JPanel sidePanel;
+	private JPanel btnPnl;
 	private DBProvider db;
 	private Viewer viewer;
 	private View view;
@@ -44,6 +49,7 @@ public class WikiBookContainer extends JFrame{
     private JPanel controlPanel;
     private int maxNodes;
     private JSpinner spinner;
+    private JButton btnZoomIn, btnZoomOut;
     
     private final int SLIDER_MIN = -2000;
 	private final int SLIDER_MAX = 2000;
@@ -107,10 +113,19 @@ public class WikiBookContainer extends JFrame{
 		yearText.setFocusable(false);
 		yearText.setText("Year: "+YEAR_INIT);
 		yearText.setBorder(new EmptyBorder(10,10,0,0));
+		
+		btnPnl = new JPanel();
+		btnPnl.setBorder(BorderFactory.createTitledBorder("Zooming"));
+		btnZoomIn = new JButton("+");
+		btnZoomOut = new JButton("-");
+		btnPnl.add(btnZoomIn);
+		btnPnl.add(btnZoomOut);
 				
 		sidePanel.add(yearText);
 		sidePanel.add(controlPanel);
+		sidePanel.add(btnPnl);
 		sidePanel.add(outputText);
+
 		
 		
 		tLine = new JSlider(JSlider.HORIZONTAL,
@@ -124,6 +139,18 @@ public class WikiBookContainer extends JFrame{
 		
 		graphFactory = new GraphFactory(this, YEAR_INIT);
 		graphFactory.start();
+		
+		btnZoomIn.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	double p = view.getCamera().getViewPercent();
+		    	view.getCamera().setViewPercent(p - 0.1);		    }
+		});
+		
+		btnZoomOut.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		    	double p = view.getCamera().getViewPercent();
+		    	view.getCamera().setViewPercent(p + 0.1);		    }
+		});
 
 		panel.add(sidePanel,BorderLayout.EAST);
 		panel.add(tLine,BorderLayout.SOUTH);
@@ -152,7 +179,6 @@ public class WikiBookContainer extends JFrame{
  		view = newView;
  		view.setFocusable(true);
  		view.getCamera().setViewPercent(0.7);
- 		
  		panel.add(newView, BorderLayout.CENTER);
  		panel.updateUI();
  		view.requestFocusInWindow();
