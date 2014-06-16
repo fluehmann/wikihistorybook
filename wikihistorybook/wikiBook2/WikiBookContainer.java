@@ -118,7 +118,9 @@ public class WikiBookContainer extends JFrame{
 		btnPnl.setFocusable(false);
 		btnPnl.setBorder(BorderFactory.createTitledBorder("Zooming"));
 		btnZoomIn = new JButton("+");
+		btnZoomIn.setFocusable(false);
 		btnZoomOut = new JButton("-");
+		btnZoomOut.setFocusable(false);
 		btnPnl.add(btnZoomIn);
 		btnPnl.add(btnZoomOut);
 				
